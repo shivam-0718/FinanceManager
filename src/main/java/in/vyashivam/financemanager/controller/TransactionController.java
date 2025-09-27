@@ -5,10 +5,8 @@ import in.vyashivam.financemanager.service.ITransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -26,4 +24,12 @@ public class TransactionController {
         String response = service.registerTransaction(transaction);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+    @GetMapping("")
+    public ResponseEntity<List<TransactionDTO>> getTransactions() {
+        List<TransactionDTO> transactions = service.getTransactions();
+        return new ResponseEntity<>(transactions, HttpStatus.OK);
+    }
+
+
 }
