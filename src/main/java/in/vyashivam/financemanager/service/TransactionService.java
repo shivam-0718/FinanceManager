@@ -6,6 +6,8 @@ import in.vyashivam.financemanager.model.TransactionDTO;
 import in.vyashivam.financemanager.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TransactionService implements ITransactionService{
@@ -20,7 +22,24 @@ public class TransactionService implements ITransactionService{
     public String registerTransaction(TransactionDTO transaction) {
         //converting DTO to entity
         Transaction tr = TransactionMapper.toEntity(transaction);
+
+        //adding transaction to repo
         repo.save(tr);
         return "Transaction has been added with serial number " + tr.getId();
+    }
+
+    @Override
+    public List<TransactionDTO> getTransactions() {
+        List<Transaction> transactions = repo.findAll();
+
+        //Displaying only specific information in list.
+        List<TransactionDTO> ans = new ArrayList<>();
+
+        //sending TransactionDto to client to allow specific information to be sent
+        for (Transaction t : transactions) {
+            ans.add(TransactionMapper.toDto(t));
+        }
+
+        return ans;
     }
 }
