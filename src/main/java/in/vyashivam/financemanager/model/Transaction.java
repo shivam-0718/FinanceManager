@@ -1,12 +1,7 @@
 package in.vyashivam.financemanager.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,15 +23,16 @@ public class Transaction {
     private Long id;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
-    @Column(name = "Date")
+    @Column(name = "Date", nullable = false)
     private LocalDate date;
 
-    @Column(name = "Category")
+    @Column(name = "Category", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Category category;
 
-    @Column(name = "Description")
+    @Column(name = "Description", nullable = false, length = 100)
     private String description;
 
-    @Column(name = "AmountINR", precision = 15, scale = 2)
+    @Column(name = "AmountINR", precision = 15, scale = 2, nullable = false)
     private BigDecimal amount;
 }
