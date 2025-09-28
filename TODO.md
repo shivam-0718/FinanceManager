@@ -2,22 +2,24 @@
 
 ## Next Steps for Personal Finance Manager Backend
 
-- [ ] Implement Update Transaction API
+- [X] Implement Update Transaction API
     - PUT `/transactions/{id}`
     - Allow updating category, amount, and description only
     - Validate existence of transaction before update
 
-- [ ] Add Input Validation and Exception Handling
+- [X] Add Input Validation and Exception Handling
     - Validate category enum correctness
     - Validate amount is positive number
     - Validate date presence and correctness
     - Use `@Valid` annotations in DTO
     - Use global `@ControllerAdvice` for handling exceptions and returning meaningful errors
 
-- [ ] Enforce Date Restrictions
+- [X] Enforce Date Restrictions
     - Transaction date must be exactly today's date
-    - Disallow adding transactions with past or future dates
+    - Disallow adding transactions with future dates
     - Return HTTP 400 error with clear message if date validation fails
+
+- [ ] Additional settings
 
 - [ ] Migrate from H2 to MySQL Database
     - Update datasource configuration in `application.properties`
