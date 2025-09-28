@@ -31,5 +31,12 @@ public class TransactionController {
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateTransactionDetails(@PathVariable Long id, @RequestBody TransactionDTO transaction) {
+        transaction.setId(id); // Ensure ID matches path parameter
+        String response = service.updateFullTransactionDetails(transaction);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 
 }
