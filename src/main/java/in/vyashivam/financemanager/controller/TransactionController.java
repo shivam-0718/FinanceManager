@@ -2,6 +2,7 @@ package in.vyashivam.financemanager.controller;
 
 import in.vyashivam.financemanager.model.TransactionDTO;
 import in.vyashivam.financemanager.service.ITransactionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class TransactionController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerTransaction(@RequestBody TransactionDTO transaction) {
+    public ResponseEntity<String> registerTransaction(@Valid @RequestBody TransactionDTO transaction) {
         String response = service.registerTransaction(transaction);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
