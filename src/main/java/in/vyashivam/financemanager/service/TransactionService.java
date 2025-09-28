@@ -1,5 +1,6 @@
 package in.vyashivam.financemanager.service;
 
+import in.vyashivam.financemanager.exception.TransactionNotFoundException;
 import in.vyashivam.financemanager.mapper.TransactionMapper;
 import in.vyashivam.financemanager.model.Transaction;
 import in.vyashivam.financemanager.model.TransactionDTO;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionService implements ITransactionService{
@@ -42,4 +44,20 @@ public class TransactionService implements ITransactionService{
 
         return ans;
     }
+
+    @Override
+    public String updateFullTransactionDetails(TransactionDTO transaction) {
+        //converting DTO to entity
+        Transaction tr = TransactionMapper.toEntity(transaction);
+
+        Optional<Transaction> optional = repo.findById(tr.getId());
+        if(optional.isPresent()) {
+            Transaction updatedTransaction = repo.save(tr);
+            return "Transaction info for serial number "+ tr.getId() + " has been updated successfully!";
+        }
+
+        throw new TransactionNotFoundException("Transaction with given serial number is not available. Please try again.");
+    }
+
+
 }
