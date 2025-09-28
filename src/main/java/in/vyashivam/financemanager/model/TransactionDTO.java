@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class TransactionDTO {
+    private Long id;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
