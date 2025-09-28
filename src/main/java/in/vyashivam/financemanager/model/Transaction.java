@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.GenerationType;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,8 @@ import java.time.LocalDate;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "Transaction")
 public class Transaction {
 
@@ -36,12 +39,4 @@ public class Transaction {
 
     @Column(name = "AmountINR", precision = 15, scale = 2)
     private BigDecimal amount;
-
-    @Builder
-    public Transaction(LocalDate date, Category category, String description, BigDecimal amount) {
-        this.date = date;
-        this.category = category;
-        this.description = description;
-        this.amount = amount;
-    }
 }
