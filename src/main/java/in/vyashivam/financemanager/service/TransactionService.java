@@ -7,6 +7,7 @@ import in.vyashivam.financemanager.model.TransactionDTO;
 import in.vyashivam.financemanager.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,11 @@ public class TransactionService implements ITransactionService{
 
     @Override
     public String registerTransaction(TransactionDTO transaction) {
+        if (transaction.getDate() == null) {
+            LocalDate date = LocalDate.now();
+            transaction.setDate(date);
+        }
+
         //converting DTO to entity
         Transaction tr = TransactionMapper.toEntity(transaction);
 
