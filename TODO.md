@@ -19,12 +19,45 @@
     - Disallow adding transactions with future dates
     - Return HTTP 400 error with clear message if date validation fails
 
-- [ ] Additional settings
+- [ ] Add GET transaction by ID endpoint
+  - GET /api/transactions/{id}
+  - Return 404 if transaction not found
+  - Handle TransactionNotFoundException properly
+
+- [ ] Add DELETE transaction endpoint
+  - DELETE /api/transactions/{id}
+  - Return success message with deleted transaction ID
+  - Validate transaction exists before deletion
 
 - [ ] Migrate from H2 to MySQL Database
     - Update datasource configuration in `application.properties`
     - Add MySQL dependency to `pom.xml` or `build.gradle`
-    - Test connection and schema migration
+    - Create database schema: finance_manager
+    - Test connection and verify data persistence
+    - Update Hibernate dialect to MySQL
+
+- [ ] Add timestamp tracking to Transaction entity
+  - Add createdAt field (auto-populated on creation)
+  - Add updatedAt field (auto-updated on modification)
+  - Use @CreatedDate and @LastModifiedDate annotations
+  - Enable JPA Auditing in main application class
+
+- [ ] Implement transaction filtering
+  - GET /api/transactions/filter?category={CATEGORY}
+  - GET /api/transactions/date-range?startDate={date}&endDate={date}
+  - Add repository methods: findByCategory(), findByDateRange()
+  - Support multiple filter combinations
+
+- [ ] Add sorting capabilities
+  - Sort by date (newest/oldest first)
+  - Sort by amount (highest/lowest first)
+  - Sort by category
+
+- [ ] Implement basic analytics endpoints
+  - GET /api/transactions/summary/category/{category} - Total spending per category
+  - GET /api/transactions/summary/monthly?month={month}&year={year} - Monthly breakdown
+  - GET /api/transactions/summary/total - Overall spending summary
+  - Return data in structured format (category-wise totals)
 
 ## Bonus for Extended Features (Later)
 
