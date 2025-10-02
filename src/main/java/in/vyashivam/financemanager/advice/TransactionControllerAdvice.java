@@ -17,7 +17,7 @@ import java.util.Map;
 public class TransactionControllerAdvice {
 
     @ExceptionHandler(TransactionNotFoundException.class)
-    public ResponseEntity<ErrorDetails> handleTouristException(TransactionNotFoundException tnf) {
+    public ResponseEntity<ErrorDetails> handleTransactionException(TransactionNotFoundException tnf) {
         ErrorDetails error = new ErrorDetails(tnf.getMessage(), LocalDateTime.now());
         return new ResponseEntity<ErrorDetails>(error, HttpStatus.BAD_REQUEST);
     }
