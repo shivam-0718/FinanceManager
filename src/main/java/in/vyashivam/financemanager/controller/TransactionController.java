@@ -5,9 +5,12 @@ import in.vyashivam.financemanager.model.TransactionDTO;
 import in.vyashivam.financemanager.service.ITransactionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,6 +54,12 @@ public class TransactionController {
     public ResponseEntity<List<TransactionDTO>> getByCategory(@RequestParam String category) {
         Category cat = Category.valueOf(category.toUpperCase());
         List<TransactionDTO> transactionsList = service.getTransactionsByCategory(cat);
+        return new ResponseEntity<>(transactionsList, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter/date-range")
+    public ResponseEntity<List<TransactionDTO>> getByDateRange(@RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate, @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate)  {
+        List<TransactionDTO> transactionsList = service.getTransactionsByDateBetween(startDate, endDate);
         return new ResponseEntity<>(transactionsList, HttpStatus.OK);
     }
 
