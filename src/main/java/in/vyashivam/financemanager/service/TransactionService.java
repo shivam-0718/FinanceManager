@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class TransactionService implements ITransactionService{
@@ -82,6 +81,17 @@ public class TransactionService implements ITransactionService{
     @Override
     public List<TransactionDTO> getTransactionsByCategory(Category category) {
         List<Transaction> transactions = repo.findByCategory(category);
+
+        List<TransactionDTO> transactionList = transactions.stream()
+                .map(TransactionMapper::toDto)
+                .toList();
+
+        return transactionList;
+    }
+
+    @Override
+    public List<TransactionDTO> getTransactionsByDateBetween(LocalDate startDate, LocalDate endDate) {
+        List<Transaction> transactions = repo.findByDateBetween(startDate, endDate);
 
         List<TransactionDTO> transactionList = transactions.stream()
                 .map(TransactionMapper::toDto)
