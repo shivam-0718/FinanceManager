@@ -2,6 +2,7 @@ package in.vyashivam.financemanager.service;
 
 import in.vyashivam.financemanager.exception.TransactionNotFoundException;
 import in.vyashivam.financemanager.mapper.TransactionMapper;
+import in.vyashivam.financemanager.model.Category;
 import in.vyashivam.financemanager.model.Transaction;
 import in.vyashivam.financemanager.model.TransactionDTO;
 import in.vyashivam.financemanager.repository.TransactionRepository;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionService implements ITransactionService{
@@ -75,5 +77,16 @@ public class TransactionService implements ITransactionService{
         }
 
         throw new TransactionNotFoundException("Transaction with given id / serial number is not available. Please try again.");
+    }
+
+    @Override
+    public List<TransactionDTO> getTransactionsByCategory(Category category) {
+        List<Transaction> transactions = repo.findByCategory(category);
+
+        List<TransactionDTO> transactionList = transactions.stream()
+                .map(TransactionMapper::toDto)
+                .toList();
+
+        return transactionList;
     }
 }
