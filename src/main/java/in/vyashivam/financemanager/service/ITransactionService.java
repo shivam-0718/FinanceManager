@@ -7,4 +7,5 @@ public interface ITransactionService {
     String registerTransaction(TransactionDTO transaction);
     List<TransactionDTO> getTransactions();
     String updateFullTransactionDetails(TransactionDTO transaction);
+    TransactionDTO fetchTransactionById(Long id);
 }
