@@ -36,6 +36,24 @@
     - Test connection and verify data persistence
     - Update Hibernate dialect to MySQL
 
+- [ ] Implement transaction filtering
+    - GET /api/transactions/filter?category={CATEGORY}
+    - GET /api/transactions/date-range?startDate={date}&endDate={date}
+    - Add repository methods: findByCategory(), findByDateRange()
+    - Support multiple filter combinations
+
+- [ ] Add sorting capabilities
+    - Sort by date (newest/oldest first)
+    - Sort by amount (highest/lowest first)
+    - Sort by category
+
+- [ ] Summary and Analytics
+  - Implement basic analytics endpoints
+    - GET /api/transactions/summary/category/{category} - Total spending per category
+    - GET /api/transactions/summary/monthly?month={month}&year={year} - Monthly breakdown
+    - GET /api/transactions/summary/total - Overall spending summary
+    - Return data in structured format (category-wise totals)
+
 - [ ] Add timestamp tracking to Transaction entity
   - Add createdAt field (auto-populated on creation)
   - Add updatedAt field (auto-updated on modification)
