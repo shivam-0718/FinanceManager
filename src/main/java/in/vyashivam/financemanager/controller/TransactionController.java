@@ -1,5 +1,6 @@
 package in.vyashivam.financemanager.controller;
 
+import in.vyashivam.financemanager.model.Category;
 import in.vyashivam.financemanager.model.TransactionDTO;
 import in.vyashivam.financemanager.service.ITransactionService;
 import jakarta.validation.Valid;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -43,6 +45,13 @@ public class TransactionController {
     public ResponseEntity<TransactionDTO> getTransaction(@PathVariable Long id) {
         TransactionDTO transaction = service.fetchTransactionById(id);
         return new ResponseEntity<>(transaction, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<TransactionDTO>> getByCategory(@RequestParam String category) {
+        Category cat = Category.valueOf(category.toUpperCase());
+        List<TransactionDTO> transactionsList = service.getTransactionsByCategory(cat);
+        return new ResponseEntity<>(transactionsList, HttpStatus.OK);
     }
 
 
