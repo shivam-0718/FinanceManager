@@ -39,5 +39,11 @@ public class TransactionController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/fetch-transaction/{id}")
+    public ResponseEntity<TransactionDTO> getTransaction(@PathVariable Long id) {
+        TransactionDTO transaction = service.fetchTransactionById(id);
+        return new ResponseEntity<>(transaction, HttpStatus.OK);
+    }
+
 
 }
