@@ -65,5 +65,15 @@ public class TransactionService implements ITransactionService{
         throw new TransactionNotFoundException("Transaction with given serial number is not available. Please try again.");
     }
 
+    @Override
+    public TransactionDTO fetchTransactionById(Long id) {
+        Optional<Transaction> optional = repo.findById(id);
+        if(optional.isPresent()) {
+            Transaction tr = optional.get();
+            TransactionDTO transaction = TransactionMapper.toDto(tr);
+            return transaction;
+        }
 
+        throw new TransactionNotFoundException("Transaction with given id / serial number is not available. Please try again.");
+    }
 }
