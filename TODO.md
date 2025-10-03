@@ -19,7 +19,7 @@
     - Disallow adding transactions with future dates
     - Return HTTP 400 error with clear message if date validation fails
 
-- [ ] Add GET transaction by ID endpoint
+- [X] Add GET transaction by ID endpoint
   - GET /api/transactions/{id}
   - Return 404 if transaction not found
   - Handle TransactionNotFoundException properly
@@ -29,7 +29,7 @@
   - Return success message with deleted transaction ID
   - Validate transaction exists before deletion
 
-- [ ] Migrate from H2 to MySQL Database
+- [X] Migrate from H2 to MySQL Database
     - Update datasource configuration in `application.properties`
     - Add MySQL dependency to `pom.xml` or `build.gradle`
     - Create database schema: finance_manager
