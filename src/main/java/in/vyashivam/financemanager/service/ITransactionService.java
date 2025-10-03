@@ -1,5 +1,6 @@
 package in.vyashivam.financemanager.service;
 
+import in.vyashivam.financemanager.model.Category;
 import in.vyashivam.financemanager.model.TransactionDTO;
 import java.util.List;
 
@@ -8,4 +9,5 @@ public interface ITransactionService {
     List<TransactionDTO> getTransactions();
     String updateFullTransactionDetails(TransactionDTO transaction);
     TransactionDTO fetchTransactionById(Long id);
+    List<TransactionDTO> getTransactionsByCategory(Category category);
 }
