@@ -13,4 +13,5 @@ public interface ITransactionService {
     TransactionDTO fetchTransactionById(Long id);
     List<TransactionDTO> getTransactionsByCategory(Category category);
     List<TransactionDTO> getTransactionsByDateBetween(LocalDate startDate, LocalDate endDate);
+    List<TransactionDTO> getSortedTransactions(boolean status, String... properties);
 }
