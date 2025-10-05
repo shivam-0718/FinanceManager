@@ -51,7 +51,7 @@ public class TransactionControllerAdvice {
             InvalidFormatException ifx = (InvalidFormatException) ex.getCause();
             if (ifx.getTargetType() != null && ifx.getTargetType().isEnum()) {
                 String errorMessage = String.format(
-                        "Invalid value '%s' for category. Valid values are: [FOOD, FASHION, GROCERIES, MEDICINE, TRANSPORTATION, ENTERTAINMENT, UTILITIES, PERSONAL_CARE, MISCELLANEOUS]",
+                        "Invalid value '%s' for category. Valid values are: [FOOD, FASHION, GROCERIES, FINANCE, MEDICINE, TRAVEL, ENTERTAINMENT, UTILITIES, PERSONAL_CARE, MISCELLANEOUS]",
                         ifx.getValue()
                 );
                 ErrorDetails error = new ErrorDetails(errorMessage, LocalDateTime.now());
