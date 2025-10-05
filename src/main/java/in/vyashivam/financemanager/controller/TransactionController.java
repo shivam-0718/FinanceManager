@@ -9,10 +9,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -61,6 +60,19 @@ public class TransactionController {
     public ResponseEntity<List<TransactionDTO>> getByDateRange(@RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate, @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate)  {
         List<TransactionDTO> transactionsList = service.getTransactionsByDateBetween(startDate, endDate);
         return new ResponseEntity<>(transactionsList, HttpStatus.OK);
+    }
+
+    @GetMapping("/sorted")
+    public ResponseEntity<List<TransactionDTO>> getSortedTransactions(@RequestParam(defaultValue = "false") boolean ascending, String... sortBy) {
+        List<String> allowedFields = Arrays.asList("date", "amount", "category");
+        for (String field : sortBy) {
+            if (!allowedFields.contains(field.toLowerCase())) {
+                return ResponseEntity.badRequest().build();
+            }
+        }
+        List<TransactionDTO> transactionsList = service.getSortedTransactions(ascending, sortBy);
+        return new ResponseEntity<>(transactionsList, HttpStatus.OK);
+
     }
 
 
