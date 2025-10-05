@@ -7,6 +7,7 @@ import in.vyashivam.financemanager.model.Transaction;
 import in.vyashivam.financemanager.model.TransactionDTO;
 import in.vyashivam.financemanager.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -98,5 +99,17 @@ public class TransactionService implements ITransactionService{
                 .toList();
 
         return transactionList;
+    }
+
+    @Override
+    public List<TransactionDTO> getSortedTransactions(boolean ascending, String... properties) {
+        Sort sort = Sort.by(ascending ? Sort.Direction.ASC : Sort.Direction.DESC, properties);
+        List<Transaction> transactions = repo.findAll(sort);
+
+        List<TransactionDTO> sortedTransactions = transactions.stream()
+                .map(TransactionMapper::toDto)
+                .toList();
+
+        return sortedTransactions;
     }
 }
