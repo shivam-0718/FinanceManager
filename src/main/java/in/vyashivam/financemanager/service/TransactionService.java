@@ -40,7 +40,7 @@ public class TransactionService implements ITransactionService{
 
     @Override
     public List<TransactionDTO> getTransactions() {
-        List<Transaction> transactions = repo.findAll();
+        List<Transaction> transactions = repo.findByDeletedFalse();
 
         //Displaying only specific information in list.
         List<TransactionDTO> ans = new ArrayList<>();
@@ -81,7 +81,7 @@ public class TransactionService implements ITransactionService{
 
     @Override
     public List<TransactionDTO> getTransactionsByCategory(Category category) {
-        List<Transaction> transactions = repo.findByCategory(category);
+        List<Transaction> transactions = repo.findByCategoryAndDeletedFalse(category);
 
         List<TransactionDTO> transactionList = transactions.stream()
                 .map(TransactionMapper::toDto)
@@ -92,7 +92,7 @@ public class TransactionService implements ITransactionService{
 
     @Override
     public List<TransactionDTO> getTransactionsByDateBetween(LocalDate startDate, LocalDate endDate) {
-        List<Transaction> transactions = repo.findByDateBetween(startDate, endDate);
+        List<Transaction> transactions = repo.findByDateBetweenAndDeletedFalse(startDate, endDate);
 
         List<TransactionDTO> transactionList = transactions.stream()
                 .map(TransactionMapper::toDto)
@@ -111,5 +111,17 @@ public class TransactionService implements ITransactionService{
                 .toList();
 
         return sortedTransactions;
+    }
+
+    @Override
+    public String deleteTransaction(Long id) {
+        Optional<Transaction> optional = repo.findById(id);
+        if(optional.isPresent()) {
+            Transaction transaction = optional.get();
+            transaction.setDeleted(true);
+            repo.save(transaction);
+            return "Transaction has been deleted with the given serial number :" + id;
+        }
+        throw new TransactionNotFoundException("Transaction with given id / serial number is not available. Please try again.");
     }
 }
