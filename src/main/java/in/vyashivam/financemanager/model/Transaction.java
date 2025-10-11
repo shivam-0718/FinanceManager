@@ -35,4 +35,7 @@ public class Transaction {
 
     @Column(name = "AmountINR", precision = 15, scale = 2, nullable = false)
     private BigDecimal amount;
+
+    @Column(name = "deleted")
+    private boolean deleted = false;
 }
